@@ -8,8 +8,8 @@ public class ButtonScript : MonoBehaviour
 {
     private int gameState = 0;
 
-    private int score = 0;
-    private int incrementLevel = 1;
+    private double score = 0;
+    private double incrementLevel = 1;
 
     public TMP_Text scoreText;
 
@@ -19,9 +19,9 @@ public class ButtonScript : MonoBehaviour
     void Start()
     {
         if (PlayerPrefs.HasKey("Score")) {
-            score = PlayerPrefs.GetInt("Score");
+            score = double.Parse(PlayerPrefs.GetString("Score"), System.Globalization.CultureInfo.InvariantCulture);
         } else {
-            PlayerPrefs.SetInt("Score", score);
+            PlayerPrefs.SetString("Score", score.ToString());
         }
 
         if (PlayerPrefs.HasKey("GameState")) {
@@ -29,19 +29,20 @@ public class ButtonScript : MonoBehaviour
         } else {
             PlayerPrefs.SetInt("GameState", gameState);
         }
-
         dialogue.SetInteger("dialogueState", gameState);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+
         scoreText.text = "" + score;
     }
 
     public void PushButton() {
         score += incrementLevel;
-        PlayerPrefs.SetInt("Score", score);
+        PlayerPrefs.SetString("Score", score.ToString());
     }
 
     public void Dialogue() {

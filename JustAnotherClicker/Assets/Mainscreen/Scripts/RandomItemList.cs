@@ -15,6 +15,12 @@ public class RandomItemList : MonoBehaviour
 
     public TMP_Text objIntro;
 
+    void Start() {
+        if (PlayerPrefs.HasKey("ObjectName")) {
+            randomObject.text = PlayerPrefs.GetString("ObjectName");
+        }
+    }
+
     public void PushButton() {
         if (PlayerPrefs.HasKey("ObjectName")) {
             randomObject.text = PlayerPrefs.GetString("ObjectName");
