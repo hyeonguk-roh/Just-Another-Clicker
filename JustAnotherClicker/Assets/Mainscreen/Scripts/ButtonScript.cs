@@ -29,6 +29,13 @@ public class ButtonScript : MonoBehaviour
         } else {
             PlayerPrefs.SetInt("GameState", gameState);
         }
+
+        if (PlayerPrefs.HasKey("IncrementLevel")) {
+            incrementLevel = double.Parse(PlayerPrefs.GetString("IncrementLevel"), System.Globalization.CultureInfo.InvariantCulture);
+        } else {
+            PlayerPrefs.SetString("IncrementLevel", incrementLevel.ToString());
+        }
+
         dialogue.SetInteger("dialogueState", gameState);
         
     }
@@ -36,8 +43,7 @@ public class ButtonScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        scoreText.text = "" + score;
+        scoreText.text = score + " " + PlayerPrefs.GetString("ObjectName");
     }
 
     public void PushButton() {
@@ -49,5 +55,6 @@ public class ButtonScript : MonoBehaviour
         gameState++;
         dialogue.SetInteger("dialogueState", gameState);
         PlayerPrefs.SetInt("GameState", gameState);
+        Debug.Log(dialogue.GetInteger("dialogueState"));
     }
 }
